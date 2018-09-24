@@ -10,5 +10,38 @@
 </head>
 <body>
 <video autoplay loop muted src="/stream.mp4"></video>
+<canvas id="canvas"></canvas>
+<script>
+    (() => {
+        const canvas = document.querySelector("#canvas");
+        const context = canvas.getContext("2d");
+        function drawFrame(image) {
+            const img = new Image();
+            img.onload = function () {
+                context.drawImage(img, 0, 0);
+            };
+            img.src = image;
+        }
+        function openCamera() {
+            const ws = new WebSocket(`ws://${window.location.host.split(":")[0]}:3001`);
+            ws.onopen = function () {
+                ws.send("open");
+            };
+            ws.onerror = function (e) {
+                console.error(e);
+            };
+            ws.onmessage = function (message) {
+                const data = JSON.parse(message.data);
+                switch (data.type) {
+                    case "frame":
+                        const image = "data:image/jpg;base64," + data.frame;
+                        drawFrame(image);
+                        break;
+                }
+            };
+        }
+        openCamera();
+    })();
+</script>
 </body>
 </html>

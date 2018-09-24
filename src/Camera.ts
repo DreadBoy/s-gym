@@ -1,7 +1,7 @@
 import {EventEmitter} from "events";
 import * as cv from "opencv4nodejs";
 
-export class FrameEmitter extends EventEmitter {
+export class Camera extends EventEmitter {
     private readonly capture: cv.VideoCapture;
     private readonly interval: NodeJS.Timer;
     private _done: boolean;

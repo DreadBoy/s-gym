@@ -1,18 +1,12 @@
 import * as Koa from 'koa';
-import * as Router from 'koa-router';
-import * as fs from 'fs-extra';
-import {video} from "./processor";
+import {router} from "./router";
+import {Processor} from "./Processor";
 
 const app = new Koa();
-const router = new Router();
-
-router.get('/', async ctx => {
-    ctx.set('Content-Type', 'text/html');
-    ctx.body = await fs.readFile('../assets/index.html', 'utf-8');
-});
-router.get('/stream.mp4', video);
 
 app
     .use(router.routes())
     .use(router.allowedMethods())
-    .listen(process.env.PORT || 3000);
+    .listen(parseInt(process.env.PORT || '3000'));
+
+new Processor(process.env.WS_PORT || '3001');
