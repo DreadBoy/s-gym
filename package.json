@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "develop": "tsc --watch",
+    "develop-server": "tsc --watch",
+    "develop-client": "webpack --config webpack.dev.js",
     "start": "node build/app.js"
   },
   "author": "",
@@ -14,13 +15,25 @@
     "@types/fs-extra": "^5.0.4",
     "@types/koa": "^2.0.46",
     "@types/koa-router": "^7.0.32",
+    "@types/koa-static": "^4.0.0",
     "@types/ws": "^6.0.1",
+    "css-loader": "^1.0.0",
+    "fork-ts-checker-webpack-plugin": "^0.4.9",
     "fs-extra": "^7.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "koa": "^2.5.3",
     "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
     "koa-stream": "^0.2.0",
+    "node-sass": "^4.9.3",
     "opencv4nodejs": "^4.8.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.0",
+    "ts-loader": "^5.2.0",
     "typescript": "^3.0.3",
+    "webpack": "^4.20.1",
+    "webpack-cli": "^3.1.1",
+    "webpack-merge": "^4.1.4",
     "ws": "^6.0.0"
   }
 }
