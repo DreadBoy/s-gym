@@ -1,7 +1,7 @@
 import {EventEmitter} from "events";
 import * as cv from "opencv4nodejs";
 
-export class Camera extends EventEmitter {
+export class VideoSource extends EventEmitter {
     private readonly capture: cv.VideoCapture;
     private readonly interval: NodeJS.Timer;
     private _done: boolean;
@@ -13,9 +13,9 @@ export class Camera extends EventEmitter {
         return this._done;
     }
 
-    constructor(filename: string) {
+    constructor(filename: string | number) {
         super();
-        this.capture = new cv.VideoCapture(filename);
+        this.capture = new cv.VideoCapture(filename as any);
         this.fps = this.capture.get(cv.CAP_PROP_FPS);
         this.fourcc = this.capture.get(cv.CAP_PROP_FOURCC);
         this.frameSize = new cv.Size(
@@ -31,7 +31,6 @@ export class Camera extends EventEmitter {
                 frame = this.capture.read();
             }
             this.emit('frame', frame);
-            cv.waitKey(1);
         }, 0);
     }
 
