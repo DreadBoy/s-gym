@@ -9,7 +9,7 @@ const app = new Koa();
 app
     .use(router.routes())
     .use(router.allowedMethods())
-    .use(serve(path.resolve(process.cwd(), '..', 'public')))
+    .use(serve(path.join(process.cwd(), 'public')))
     .listen(parseInt(process.env.PORT || '3000'));
 
 new Processor(process.env.WS_PORT || '3001');
